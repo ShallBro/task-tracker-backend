@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: 01_users.sql
+      relativeToChangelogFile: true
+  - include:
+      file: 02_tasks.sql
+      relativeToChangelogFile: true
