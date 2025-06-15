@@ -1,5 +1,7 @@
 package org.example.cloudfilestorage;
 
+import static org.example.cloudfilestorage.constants.ControllerAdviceConstant.MESSAGE;
+
 import java.util.Collections;
 import java.util.Map;
 import org.example.cloudfilestorage.exception.BadCredentialsException;
@@ -18,27 +20,27 @@ public class GlobalControllerAdvice {
   public ResponseEntity<Map<String, String>> handleEmailTaken(EmailAlreadyTakenException ex) {
     return ResponseEntity
       .status(HttpStatus.CONFLICT)
-      .body(Collections.singletonMap("message", ex.getMessage()));
+      .body(Collections.singletonMap(MESSAGE, ex.getMessage()));
   }
 
   @ExceptionHandler(NotFoundUserException.class)
   public ResponseEntity<Map<String, String>> notFoundUser(NotFoundUserException ex) {
     return ResponseEntity
       .status(HttpStatus.NOT_FOUND)
-      .body(Collections.singletonMap("message", ex.getMessage()));
+      .body(Collections.singletonMap(MESSAGE, ex.getMessage()));
   }
 
   @ExceptionHandler(UsernameNotFoundException.class)
-  public ResponseEntity<Map<String, String>> notFoundUser(UsernameNotFoundException ex) {
+  public ResponseEntity<Map<String, String>> userNameNotFound(UsernameNotFoundException ex) {
     return ResponseEntity
       .status(HttpStatus.UNAUTHORIZED)
-      .body(Collections.singletonMap("message", ex.getMessage()));
+      .body(Collections.singletonMap(MESSAGE, ex.getMessage()));
   }
 
   @ExceptionHandler(BadCredentialsException.class)
-  public ResponseEntity<Map<String, String>> notFoundUser(BadCredentialsException ex) {
+  public ResponseEntity<Map<String, String>> badCredentialsException(BadCredentialsException ex) {
     return ResponseEntity
       .status(HttpStatus.UNAUTHORIZED)
-      .body(Collections.singletonMap("message", ex.getMessage()));
+      .body(Collections.singletonMap(MESSAGE, ex.getMessage()));
   }
 }

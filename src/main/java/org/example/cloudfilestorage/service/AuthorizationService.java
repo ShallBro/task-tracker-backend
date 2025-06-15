@@ -30,6 +30,7 @@ public class AuthorizationService {
     LOGGER.info("Find by email: {}", userDTO.getEmail());
     User user = userRepository.findByEmail(userDTO.getEmail()).orElseThrow(() -> new UsernameNotFoundException(userDTO.getEmail()));
     if (!passwordEncoder.matches(userDTO.getPassword(), user.getPassword())) {
+      LOGGER.error("BadPassword: {}", userDTO.getPassword());
       throw new BadCredentialsException();
     }
     return jwtProvider.generateToken(userDTO.getEmail());
