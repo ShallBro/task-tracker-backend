@@ -21,17 +21,6 @@ public class Task {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  public Task() {}
-
-  public Task(User user, String title, String description, Boolean isDone, Timestamp createdAt, Timestamp doneAt) {
-    this.user = user;
-    this.title = title;
-    this.description = description;
-    this.isDone = isDone;
-    this.createdAt = createdAt;
-    this.doneAt = doneAt;
-  }
-
   @ManyToOne
   @JoinColumn(name = "user_id", referencedColumnName = "id")
   private User user;

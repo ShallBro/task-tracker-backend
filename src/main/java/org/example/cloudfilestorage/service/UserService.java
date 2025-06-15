@@ -2,9 +2,7 @@ package org.example.cloudfilestorage.service;
 
 import static java.lang.invoke.MethodHandles.lookup;
 
-import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.example.cloudfilestorage.dto.TaskDTO;
 import org.example.cloudfilestorage.dto.UserDTO;
 import org.example.cloudfilestorage.entity.User;
 import org.example.cloudfilestorage.exception.EmailAlreadyTakenException;
