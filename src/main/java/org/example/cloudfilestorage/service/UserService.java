@@ -2,7 +2,9 @@ package org.example.cloudfilestorage.service;
 
 import static java.lang.invoke.MethodHandles.lookup;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.example.cloudfilestorage.dto.TaskDTO;
 import org.example.cloudfilestorage.dto.UserDTO;
 import org.example.cloudfilestorage.entity.User;
 import org.example.cloudfilestorage.exception.EmailAlreadyTakenException;
@@ -44,6 +46,7 @@ public class UserService {
 
   @Transactional(readOnly = true)
   public UserDTO getUser(int id) {
+    LOGGER.info("Get user by id: {}", id);
     return genericMapper.toDto(userRepository.findById((long) id).orElseThrow(() -> new NotFoundUserException(id)));
   }
 }
