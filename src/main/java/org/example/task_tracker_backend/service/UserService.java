@@ -3,6 +3,7 @@ package org.example.task_tracker_backend.service;
 import static java.lang.invoke.MethodHandles.lookup;
 
 import lombok.RequiredArgsConstructor;
+import org.example.task_tracker_backend.dto.EmailTaskDTO;
 import org.example.task_tracker_backend.dto.UserDTO;
 import org.example.task_tracker_backend.entity.User;
 import org.example.task_tracker_backend.exception.EmailAlreadyTakenException;
@@ -28,6 +29,8 @@ public class UserService {
 
   private final PasswordEncoder passwordEncoder;
 
+  private final KafkaService kafkaService;
+
   private static final Logger LOGGER = LoggerFactory.getLogger(lookup().lookupClass());
 
 
@@ -38,7 +41,10 @@ public class UserService {
     LOGGER.info("Save user in repository: {}", userDTO.getEmail());
     userRepository.save(new User(userDTO.getEmail(), passwordEncoder.encode(userDTO.getPassword())));
     LOGGER.info("Generate token for {}", userDTO.getEmail());
-    // В кафку отправляем на сервис с рассылками
+    kafkaService.sendEmailService(EmailTaskDTO.builder()
+            .to(userDTO.getEmail())
+            .body("Спасибо за регистрацию")
+            .subject("Добро пожаловать!").build());
     return jwtProvider.generateToken(userDTO.getEmail());
   }
 
